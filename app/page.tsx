@@ -1,10 +1,16 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import iyama from "./000385.json";
 
 export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.description}>
+        <ul>
+          {iyama.games.map((x,i)=>(
+            <li key={i}>{x.opponent.name}</li>
+            ))}
+        </ul>
         <p>
           Get started by editingaaaa&nbsp;
           <code className={styles.code}>app/page.tsx</code>
