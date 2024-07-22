@@ -1,12 +1,11 @@
-'use client';
 import styles from "./page.module.css";
 import iyama from "../000385.json";
-import FullCalendar from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
-import timeGridPlugin from '@fullcalendar/timegrid'
+import OshiCalendar, { type GetGamesResponse } from "@/components/OshiCalendar";
 
-
-export default function Home() {
+export default async function Home() {
+  const apiResponse = await fetch("http://localhost:3000/api");
+  const data = apiResponse.json() as unknown as GetGamesResponse;
+  
   return (
     <>
       <header className={styles.header}>
@@ -19,19 +18,7 @@ export default function Home() {
             <li key={i}>{x.opponent.name}</li>
           ))}
         </ul>
-        <FullCalendar
-          plugins={[ dayGridPlugin, timeGridPlugin ]}
-          initialView="dayGridWeek"
-          headerToolbar={{
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek'
-          }}
-          events={[
-            { title: 'event 1', date: '2024-07-22T15:00:00' },
-            { title: 'event 2', date: '2024-07-25' }
-          ]}
-        />
+        <OshiCalendar games={data.games} />
       </main>
     </>
   );
