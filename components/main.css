@@ -1,0 +1,8 @@
+.oshi-calendar__dialog{
+
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0.1);
+    position: fixed;
+    inset: 0px;
+  }
+}
