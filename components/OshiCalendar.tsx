@@ -2,6 +2,9 @@
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import { OshiCalendarDialogEvent } from './OshiCalendarDialogEvent';
+import { useState } from 'react';
+import { EventClickArg } from '@fullcalendar/core/index.js';
 
 export type Game = {
   tournamentName: string;
@@ -17,19 +20,39 @@ export type GetGamesResponse = {
 }
 
 export default function OshiCalendar({ games }: GetGamesResponse) {
+  console.log(games?.[0]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [dialogTitle, setDialogTitle] = useState('');
+  const [dialogDetails, setDialogDetails] = useState('');
+  const handleClickEvent = (x: EventClickArg) => {
+    setDialogTitle(x.event.title);
+    setDialogDetails(x.event.start?.toISOString() ?? '');
+    setIsOpen(true);
+  }
   return (
-    <FullCalendar
-      plugins={[ dayGridPlugin, timeGridPlugin ]}
-      initialView="dayGridWeek"
-      headerToolbar={{
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek'
-      }}
-      events={[
-        { title: games?.[0]?.tournamentName ?? '', date: '2024-07-22T15:00:00' },
-        { title: 'event 2', date: '2024-07-25' }
-      ]}
-    />
+    <>
+      <FullCalendar
+        plugins={[ dayGridPlugin, timeGridPlugin ]}
+        initialView="dayGridWeek"
+        headerToolbar={{
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek'
+        }}
+        eventClick={handleClickEvent}
+        events={
+          games?.map(x => (
+              {title: x.tournamentName + " " + x.opponentName,
+               date: x.date,
+              }
+          ))
+        }
+      />  
+      <OshiCalendarDialogEvent
+        isOpen={isOpen}
+        title={dialogTitle}
+        details={dialogDetails}
+      />
+    </>
   );  
 }
