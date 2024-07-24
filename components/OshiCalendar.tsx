@@ -50,6 +50,7 @@ export default function OshiCalendar({ games }: GetGamesResponse) {
       />  
       <OshiCalendarDialogEvent
         isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
         title={dialogTitle}
         details={dialogDetails}
       />

@@ -1,8 +1,8 @@
 .oshi-calendar__dialog{
+  margin: auto;
 
   &::backdrop {
-    background-color: rgba(0, 0, 0, 0.1);
-    position: fixed;
-    inset: 0px;
+    backdrop-filter: blur(1px);
+    background-color: rgba(255, 255, 255, 0.2);
   }
 }
