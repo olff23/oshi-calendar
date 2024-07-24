@@ -1,5 +1,4 @@
 import "./main.css";
-import iyama from "../000385.json";
 import OshiCalendar, { type GetGamesResponse } from "@/components/OshiCalendar";
 
 export default async function MyCalendar() {
@@ -8,16 +7,11 @@ export default async function MyCalendar() {
   
   return (
     <>
-      <header className="mycalendar__header">
+      <header className="my-calendar__header">
         <h1>推しカレンダー</h1>
       </header>
-      <main className="mycalendar__main">
+      <main className="my-calendar__main">
         <h2>あなたの推しカレンダー</h2>
-        <ul>
-          {iyama.games.map((x,i)=>(
-            <li key={i}>{x.opponent.name}</li>
-          ))}
-        </ul>
         <OshiCalendar games={data.games} />
       </main>
     </>

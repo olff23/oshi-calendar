@@ -1,19 +1,10 @@
 import Image from "next/image";
-import iyama from "./000385.json";
+// import iyama from "./000385.json";
 
 export default function Home() {
   return (
     <main>
       <div>
-        <ul>
-          {iyama.games.map((x,i)=>(
-            <li key={i}>{x.opponent.name}</li>
-            ))}
-        </ul>
-        <p>
-          Get started by editingaaaa&nbsp;
-          <code>app/page.tsx</code>
-        </p>
         <div>
           <a
             href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
