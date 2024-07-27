@@ -2,7 +2,7 @@
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import { OshiCalendarDialogEvent } from './OshiCalendarDialogEvent';
+import { OshiCalendarDialogEvent } from "./OshiCalendarDialogEvent";
 import { useState } from 'react';
 import { EventClickArg } from '@fullcalendar/core/index.js';
 
@@ -42,7 +42,7 @@ export default function OshiCalendar({ games }: GetGamesResponse) {
         eventClick={handleClickEvent}
         events={
           games?.map(x => (
-              {title: x.tournamentName + " " + x.opponentName,
+              {title: x.tournamentName + "　" + x.opponentName,
                date: x.date,
               }
           ))

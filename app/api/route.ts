@@ -2,11 +2,11 @@ import { ResultIDs } from "@/utils/constants";
 import {db} from '@/app/firebase'
 
 const iyamaID = 385;
-const gamesCollection = db
-  .doc("sites/nihobkiin")
-  .collection("players")
-  .doc(`${iyamaID}`)
-  .collection("games");
+// const gamesCollection = db
+//   .doc("sites/nihobkiin")
+//   .collection("players")
+//   .doc(`${iyamaID}`)
+//   .collection("games");
 
 export async function GET() {
   const res = await fetch(`https://www.nihonkiin.or.jp/player_results/${`${iyamaID}`.padStart(6, '0')}.json`);
@@ -43,12 +43,12 @@ export async function GET() {
   });
 
   // TODO: 重複判定
-  for (const game of games) {
-    await gamesCollection.add(game);
-  }
+//   for (const game of games) {
+//     await gamesCollection.add(game);
+//   }
 
-  const gamesSnapshot = await gamesCollection.get();
-  console.log(gamesSnapshot.docs.map(x=>x.data()));
+//   const gamesSnapshot = await gamesCollection.get();
+//   console.log(gamesSnapshot.docs.map(x=>x.data()));
  
   return Response.json({ games })
 }

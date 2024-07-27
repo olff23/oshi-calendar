@@ -1,7 +1,7 @@
-import { useEffect, useRef } from "react";
 import "./main.css"
+import { useEffect, useRef } from "react";
 
-type Props = {
+export type Props = {
   isOpen: boolean;
   onClose: () => void;
   title: string;
@@ -13,11 +13,19 @@ export function OshiCalendarDialogEvent({ isOpen, onClose, title, details }: Pro
     useEffect(()=>{
         isOpen ? myRef.current?.showModal() : myRef.current?.close();
     },[isOpen]);
+    myRef.current?.addEventListener('click', (event) => {
+      if(event.target === myRef.current){
+        onClose()
+      }
+    })
+
   return (
     <dialog ref={myRef} className="oshi-calendar__dialog">
-      <h2>{title}</h2>
-      <p>{details}</p>
-      <button onClick={onClose}>close</button>
+      <div className="inner">
+        <h2>{title}</h2>
+        <p>{details}</p>
+        <button onClick={onClose}>close</button>
+      </div>
     </dialog> 
   )
 }
