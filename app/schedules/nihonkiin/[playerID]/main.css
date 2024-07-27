@@ -1,4 +1,4 @@
-.my-calendar__header {
+.schedule-calendar__header {
     padding: 5px;
     border-bottom: 1px solid white;
 
@@ -8,12 +8,13 @@
     }
 }
 
-.my-calendar__main {
+.schedule-calendar__main {
     padding: 5px;
     position: relative;
 
     h2 {
         font-size: 1.5rem;
         line-height: 1;
+        margin: 0.5rem;
     }
 }
