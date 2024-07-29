@@ -1,3 +1,29 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "eslint:recommended",
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/strict-type-checked",
+    "plugin:@typescript-eslint/stylistic-type-checked",
+    "plugin:@stylistic/disable-legacy",
+    "plugin:@stylistic/all-extends"
+  ],
+  "parserOptions": {
+    "project": ["./tsconfig.json"]
+  },
+  "rules": {
+    "@stylistic/indent": ["warn", 2],
+    "@stylistic/lines-around-comment": ["warn", { "allowBlockStart": true }],
+    "@stylistic/multiline-comment-style": ["warn", "separate-lines"],
+    "@stylistic/quote-props": ["warn", "consistent-as-needed"],
+    "@stylistic/quotes": ["warn", "single"],
+    "@stylistic/object-curly-spacing": ["warn", "always"],
+    "@stylistic/padded-blocks": ["warn", "never"],
+    "@typescript-eslint/no-confusing-void-expression": ["warn", {
+      "ignoreArrowShorthand": true
+    }],
+    "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+    "@typescript-eslint/restrict-template-expressions": ["error", {
+      "allowNumber": true
+    }]
+  }
 }
