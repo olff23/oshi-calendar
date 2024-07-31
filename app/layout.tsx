@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Props } from "@/components/OshiCalendarDialogEvent";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,30 +15,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ja">
       <body className={inter.className}>{children}</body>
     </html>
   );
 }
-
-// Import the functions you need from the SDKs you need
-// import { initializeApp } from "firebase/app";
-// import { getAnalytics } from "firebase/analytics";
-// // TODO: Add SDKs for Firebase products that you want to use
-// // https://firebase.google.com/docs/web/setup#available-libraries
-
-// // Your web app's Firebase configuration
-// // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// const firebaseConfig = {
-//   apiKey: "AIzaSyBY3PIdrBMr70AA5SC5Ii1NSuLyyFfD7HE",
-//   authDomain: "oshi-calendar-d30b7.firebaseapp.com",
-//   projectId: "oshi-calendar-d30b7",
-//   storageBucket: "oshi-calendar-d30b7.appspot.com",
-//   messagingSenderId: "787563407491",
-//   appId: "1:787563407491:web:713cbea36f050d3b3253b6",
-//   measurementId: "G-ZTGNRQRVSH"
-// };
-
-// // Initialize Firebase
-// const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);

@@ -5,22 +5,13 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import { OshiCalendarDialogEvent } from "./OshiCalendarDialogEvent";
 import { useState } from 'react';
 import { EventClickArg } from '@fullcalendar/core/index.js';
+import type { Game } from '@/app/api/v1/schedules/route'
 
-export type Game = {
-  tournamentName: string;
-  opponentName: string;
-  opponentID: number | null;
-  date: string;
-  resultID: 0 | 1 | 2 | 3 | null;
-  resultName: string | null;
+type Props = {
+  games: Game[];
 }
 
-export type GetGamesResponse = {
-  games: Game[]
-}
-
-export default function OshiCalendar({ games }: GetGamesResponse) {
-  console.log(games?.[0]);
+export default function OshiCalendar({ games }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [dialogTitle, setDialogTitle] = useState('');
   const [dialogDetails, setDialogDetails] = useState('');
@@ -41,11 +32,10 @@ export default function OshiCalendar({ games }: GetGamesResponse) {
         }}
         eventClick={handleClickEvent}
         events={
-          games?.map(x => (
-              {title: x.tournamentName + "　" + x.opponentName,
-               date: x.date,
-              }
-          ))
+          games?.map(x => ({
+            title: x.tournamentName + "　" + x.opponentName,
+            date: x.date,
+          }))
         }
       />  
       <OshiCalendarDialogEvent
