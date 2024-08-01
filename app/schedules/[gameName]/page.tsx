@@ -29,7 +29,7 @@ const shogiTitleHolders = [ // TODO: 他の棋士の検索
     id: 'watanabeakira' }
 ] as const;
 
-export default async function NihonkiinHome ({ params }: { params: { gameName: string } }) {
+export default function gameHome ({ params }: { params: { gameName: string } }) {
   const gameName = decodeURI(params.gameName);
   const isGo = gameName === '囲碁';
   const isShogi = gameName === '将棋';
