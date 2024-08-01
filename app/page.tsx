@@ -1,8 +1,8 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 // import iyama from "./000385.json";
 
-export default function Home() {
+export default function Home () {
   return (
     <main>
       <ul>

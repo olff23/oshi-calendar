@@ -1,10 +1,11 @@
-import "./main.css";
-import OshiCalendar, { type GetGamesResponse } from "@/components/OshiCalendar";
+import './main.css';
+import OshiCalendar from '@/components/OshiCalendar';
+import type { ScheduleGetResponse } from '@/app/api/v1/schedules/route';
 
-export default async function MyCalendar() {
-  const apiResponse = await fetch("http://localhost:3000/api");
-  const data = await apiResponse.json() as unknown as GetGamesResponse;
-  
+export default async function MyCalendar () {
+  const apiResponse = await fetch('http://localhost:3000/api');
+  const data = await apiResponse.json() as unknown as ScheduleGetResponse;
+
   return (
     <>
       <header className="my-calendar__header">
