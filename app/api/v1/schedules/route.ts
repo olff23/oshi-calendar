@@ -26,7 +26,7 @@ export type ScheduleGetResponse = {
 //   .doc(`${iyamaID}`)
 //   .collection("games");
 
-async function get日本棋院棋士データ (id: string) {
+async function get日本棋院棋士データ (id: string): Promise<Response> {
   type 日本棋院棋士データ = {
     player: {
       code: number ;
@@ -96,7 +96,7 @@ async function get日本棋院棋士データ (id: string) {
   } satisfies ScheduleGetResponse);
 }
 
-async function get将棋棋士データ (id: string) {
+async function get将棋棋士データ (id: string): Promise<Response> {
   let doc: Dom;
   try {
     // CHECK: XHR のほうがパフォーマンスよかったりしそう
@@ -119,18 +119,34 @@ async function get将棋棋士データ (id: string) {
     const dateDoc = x.childNodes[0];
     const subDoc = x.childNodes[1];
     const oppDocs = x.childNodes[2].getElementsByTagName('a');
-    const rateDoc = x.childNodes[3];
+    const rateDoc = x.childNodes[3] ?? { textContent: null };
+
+    console.log(oppDocs);
 
     // Game ==================================================================
     const tournamentName = subDoc.textContent;
 
-    const opponentNames: string[] = oppDocs.map((y) => y.textContent);
-    const opponentName = opponentNames.join(' か ');
+    let opponentName = '';
+    let opponentID = '';
+    if (oppDocs.length) {
+      const opponentNames: string[] = oppDocs.map((y) => y.textContent);
+      opponentName = opponentNames.join(' か ');
 
-    const opponentURLs: string[] = oppDocs.map((y) => y.attributes.find((z) => z.name === 'href')?.value ?? '').filter((y) => y.length);
-    const opponentIDs: string[] = opponentURLs.map((y) => y.split('/').at(-1)?.
-      split('.')[0] ?? '');
-    const opponentID = opponentIDs.join(',');
+      const opponentURLs: string[] = oppDocs.
+        map((y) => y.attributes.find((z) => z.name === 'href')?.value ?? '').
+        filter((y) => y.length);
+      const opponentIDs: string[] = opponentURLs.map((y) => y.
+        split('/').at(-1)?.
+        split('.')[0] ??
+        '');
+      opponentID = opponentIDs.join(',');
+    } else {
+      opponentName = x.childNodes[2].textContent;
+      if (opponentName === '〃') {
+        opponentName = games.at(-1)?.opponentName ?? opponentName;
+        opponentID = (games.at(-1)?.opponentID ?? opponentID) as string;
+      }
+    }
 
     let date = dateDoc.textContent;
     if (date === '-' || !date) date = '';
@@ -175,7 +191,7 @@ async function get将棋棋士データ (id: string) {
   } satisfies ScheduleGetResponse);
 }
 
-export async function GET (request: NextRequest) {
+export async function GET (request: NextRequest): Promise<Response> {
   const { searchParams } = request.nextUrl;
   const leagueID = parseInt(
     searchParams.get('leagueID') ?? '',
@@ -190,7 +206,7 @@ export async function GET (request: NextRequest) {
     case LeagueIDs.将棋連盟:
       return await get将棋棋士データ(id);
     case LeagueIDs.関西棋院:
-      return [];
+      return Response.json({});
     default:
       return Response.error(); // leagueID が一致しない
   }
