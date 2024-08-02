@@ -22,7 +22,7 @@ const shogiTitleHolders = [ // TODO: 他の棋士の検索
   { name: '羽生善治 九段',
     id: 'habuyoshiharu' },
   { name: '佐藤康光 九段',
-    id: 'satoyasumitsu' },
+    id: 'satouyasumitsu' },
   { name: '森内俊之 九段',
     id: 'moriuchitoshiyuki' },
   { name: '渡辺明 九段',
