@@ -1,6 +1,7 @@
 import { LeagueIDs, ResultIDs } from '@/utils/constants';
 import type { NextRequest } from 'next/server';
-import { Dom, parseFromString } from 'dom-parser';
+// import { Dom, parseFromString } from 'dom-parser';
+import { parse as parseFromString, type HTMLElement as Dom } from 'node-html-parser';
 // import { db } from '@/app/firebase';
 
 export type Game = {
@@ -114,17 +115,17 @@ async function get将棋棋士データ (id: string): Promise<Response> {
   }
 
   const games: Game[] = [];
-  const gamePlanDocs = doc.getElementsByClassName('plan-plan');
+  const gamePlanDocs = doc.querySelectorAll('ul.plan-plan');
   for (const x of gamePlanDocs) {
-    const dateDoc = x.childNodes[0];
-    const subDoc = x.childNodes[1];
-    const oppDocs = x.childNodes[2].getElementsByTagName('a');
-    const rateDoc = x.childNodes[3] ?? { textContent: null };
+    const dateDoc = x.querySelector('li.matchday');
+    const subDoc = x.querySelector('li.subject');
+    const oppDocs = x.querySelectorAll('li.oppose > a,li.oppose_two > a');
+    const rateDoc = x.querySelector('li.winrate');
 
     console.log(oppDocs);
 
     // Game ==================================================================
-    const tournamentName = subDoc.textContent;
+    const tournamentName = subDoc?.textContent ?? '';
 
     let opponentName = '';
     let opponentID = '';
@@ -132,13 +133,15 @@ async function get将棋棋士データ (id: string): Promise<Response> {
       const opponentNames: string[] = oppDocs.map((y) => y.textContent);
       opponentName = opponentNames.join(' か ');
 
-      const opponentURLs: string[] = oppDocs.
-        map((y) => y.attributes.find((z) => z.name === 'href')?.value ?? '').
-        filter((y) => y.length);
-      const opponentIDs: string[] = opponentURLs.map((y) => y.
-        split('/').at(-1)?.
-        split('.')[0] ??
-        '');
+      const opponentIDs: string[] = [];
+      oppDocs.forEach((y) => {
+        const opponentURL = y.getAttribute('href');
+        opponentIDs.push(opponentURL?.
+          split('/').
+          at(-1)?.
+          split('.')[0] ??
+          '');
+      });
       opponentID = opponentIDs.join(',');
     } else {
       opponentName = x.childNodes[2].textContent;
@@ -148,7 +151,7 @@ async function get将棋棋士データ (id: string): Promise<Response> {
       }
     }
 
-    let date = dateDoc.textContent;
+    let date = dateDoc?.textContent;
     if (date === '-' || !date) date = '';
     const dateYMD = [
       new Date().getFullYear(),
@@ -167,7 +170,7 @@ async function get将棋棋士データ (id: string): Promise<Response> {
     )).join('-');
 
     const resultID = null;
-    const resultName = rateDoc.textContent || null;
+    const resultName = rateDoc?.textContent ?? null;
     // =======================================================================
 
     games.push({
@@ -181,8 +184,8 @@ async function get将棋棋士データ (id: string): Promise<Response> {
   }
 
   // 棋士名
-  let name: string | undefined = doc.getElementsByClassName('content-heading')[0].getElementsByTagName('h1')[0]?.textContent?.split(' : ')[0];
-  name ??= doc.getElementsByTagName('nav')[0].getElementsByTagName('ul')[0]?.childNodes[1].childNodes[0].textContent ?? '';
+  let name: string | undefined = doc.querySelector('.content-heading > h1')?.textContent.split(' : ')[0];
+  name ||= doc.querySelectorAll('nav > ul > li').at(-1)?.textContent ?? '';
 
   return Response.json({
     player: { id,
