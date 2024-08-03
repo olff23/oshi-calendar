@@ -1,95 +1,35 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from 'next/link';
+import Image from 'next/image';
+import './main.css';
+import { goTitleHolders, shogiTitleHolders } from './schedules/[gameName]/page';
 
-export default function Home() {
+export default function Home () {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editingaaaa&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+    <main className='home__main'>
+      <div className="home__eye-catch">
+        <Image src="/logo-break.png" width={450} height={450} priority alt='推しカレンダー' />
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      <section className="home__section">
+        <h2 className="home__section-title">推しの対局日程を見よう！</h2>
+        <ul role='list'>
+          <li>
+            <Link href="/schedules/将棋">将棋</Link>
+            <ul role='list'>
+              {shogiTitleHolders.map((x) => <li key={x.id}>
+                <Link href={`schedules/将棋/${x.id}`}>{x.name}</Link>
+              </li>)}
+            </ul>
+          </li>
+          <li>
+            <Link href="/schedules/囲碁">囲碁</Link>
+            <ul role='list'>
+              {goTitleHolders.map((x) => <li key={x.id}>
+                <Link href={`schedules/囲碁/${x.id}`}>{x.name}</Link>
+              </li>)}
+            </ul>
+          </li>
+        </ul>
+      </section>
     </main>
   );
 }
