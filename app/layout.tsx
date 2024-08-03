@@ -1,13 +1,12 @@
 import type { Metadata } from 'next';
-import { BIZ_UDPGothic, BIZ_UDPMincho } from 'next/font/google';
+import { BIZ_UDPGothic } from 'next/font/google';
 import './globals.css';
 
 import AppHeader from '@/components/AppHeader';
 import AppFooter from '@/components/AppFooter';
 
-export const bizUdpMincho = BIZ_UDPMincho({ weight: '700',
-  preload: false });
-export const bizUdpGothic = BIZ_UDPGothic({ weight: [
+
+const bizUdpGothic = BIZ_UDPGothic({ weight: [
   '400',
   '700'
 ],

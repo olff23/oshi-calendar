@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import './main.css';
-import { goTitleHolders, shogiTitleHolders } from './schedules/[gameName]/page';
+import { goTitleHolders, shogiTitleHolders } from '@/utils/constants';
 
 export default function Home () {
   return (
