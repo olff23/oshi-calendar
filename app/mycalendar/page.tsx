@@ -8,9 +8,6 @@ export default async function MyCalendar () {
 
   return (
     <>
-      <header className="my-calendar__header">
-        <h1>推しカレンダー</h1>
-      </header>
       <main className="my-calendar__main">
         <h2>あなたの推しカレンダー</h2>
         <OshiCalendar games={data.games} />

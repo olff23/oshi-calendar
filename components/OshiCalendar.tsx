@@ -36,7 +36,7 @@ export default function OshiCalendar ({ games }: Props) {
           dayGridPlugin,
           timeGridPlugin
         ]}
-        initialView="dayGridWeek"
+        initialView="dayGridMonth"
         headerToolbar={{
           left: 'prev,next today',
           center: 'title',

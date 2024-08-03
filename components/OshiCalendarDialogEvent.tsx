@@ -1,4 +1,4 @@
-import './main.css';
+import './oshi_calendar.css';
 import { useEffect, useRef } from 'react';
 
 export type Props = {

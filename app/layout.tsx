@@ -1,8 +1,17 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { BIZ_UDPGothic, BIZ_UDPMincho } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+import AppHeader from '@/components/AppHeader';
+import AppFooter from '@/components/AppFooter';
+
+export const bizUdpMincho = BIZ_UDPMincho({ weight: '700',
+  preload: false });
+export const bizUdpGothic = BIZ_UDPGothic({ weight: [
+  '400',
+  '700'
+],
+preload: false });
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,7 +25,11 @@ export default function RootLayout ({
 }>) {
   return (
     <html lang="ja">
-      <body className={inter.className}>{children}</body>
+      <body className={bizUdpGothic.className}>
+        <AppHeader />
+        {children}
+        <AppFooter />
+      </body>
     </html>
   );
 }
