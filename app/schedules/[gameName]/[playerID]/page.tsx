@@ -5,7 +5,6 @@ import OshiCalendar from '@/components/OshiCalendar';
 import type { ScheduleGetResponse } from '@/app/api/v1/schedules/route';
 
 import '../../main.css';
-import Link from 'next/link';
 
 type Params = {
   gameName: string;
@@ -32,14 +31,9 @@ export default async function NihonkiinPlayer ({ params }: { params: Params }) {
   );
 
   return (
-    <>
-      <header className="schedule-calendar__header">
-        <h1><Link href="/">推しカレンダー</Link></h1>
-      </header>
-      <main className="schedule-calendar__main">
-        <h2>{data.player.name}のカレンダー</h2>
-        <OshiCalendar games={data.games} />
-      </main>
-    </>
+    <main className="schedule-calendar__main">
+      <h2>{data.player.name}のカレンダー</h2>
+      <OshiCalendar games={data.games} />
+    </main>
   );
 }

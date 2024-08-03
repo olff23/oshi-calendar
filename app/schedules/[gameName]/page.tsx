@@ -3,7 +3,7 @@ import Link from 'next/link';
 import '../main.css';
 import { notFound } from 'next/navigation';
 
-const goTitleHolders = [ // TODO: 他の棋士の検索
+export const goTitleHolders = [ // TODO: 他の棋士の検索
   { name: '一力遼 棋聖・天元・本因坊（阿含桐山杯・NHK杯）',
     id: 435 },
   { name: '芝野虎丸 名人（テイケイ杯俊英）',
@@ -12,7 +12,7 @@ const goTitleHolders = [ // TODO: 他の棋士の検索
     id: 385 }
 ] as const;
 
-const shogiTitleHolders = [ // TODO: 他の棋士の検索
+export const shogiTitleHolders = [ // TODO: 他の棋士の検索
   { name: '藤井聡太 7冠',
     id: 'fujiisota' },
   { name: '伊藤匠 叡王',
@@ -44,12 +44,12 @@ export default function gameHome ({ params }: { params: { gameName: string } }) 
     : '将棋連盟';
   return (
     <>
-      <header className="schedule-calendar__header">
-        <h1>{leagueName}所属棋士</h1>
-      </header>
       <main className="schedule-calendar__main">
-        <h2>タイトルホルダー</h2>
-        <ul>
+        <header className="schedule-calendar__header">
+          <h2>{leagueName}所属棋士</h2>
+        </header>
+        <h3>タイトルホルダー</h3>
+        <ul role='list'>
           {titleHolders.map((x) => <li key={x.id}>
             <Link href={`${gameName}/${x.id}`}>{x.name}</Link>
           </li>)}
